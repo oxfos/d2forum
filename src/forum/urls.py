@@ -1,12 +1,10 @@
 from django.urls import path
-from django.http import HttpResponse
+from . import views
 
-def i_am_the_view(request):
-    return HttpResponse('<p>prova2</p>')
 
 app_name = 'forum'
 urlpatterns = [
-    path('', i_am_the_view)
+    path('', views.i_am_the_view, name="i_view"),
 ]
 
 
