@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Post
+from .forms import PostForm
 
 
 def posts_list(request):
@@ -13,3 +14,14 @@ def post_detail(request, post_slug, post_id):
     post = Post.objects.get(id=post_id)
     context = {'post': post}
     return render(request, 'forum/post_detail.html', context)
+
+def new_post(request):
+    """Form to add a new post."""
+    if request.method == 'POST':
+        form = PostForm(data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('forum:posts_list')
+    else:
+        form = PostForm()
+    return render(request, 'forum/new_post.html', {'form': form})
