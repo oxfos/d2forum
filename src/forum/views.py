@@ -1,6 +1,8 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from .models import Post
 
 
-def i_am_the_view(request):
-    return HttpResponse('<p>prova2</p>')
+def posts(request):
+    posts = Post.objects.all()
+    context = {'posts': posts}
+    return render(request, 'forum/index.html', context)
