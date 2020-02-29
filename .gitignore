@@ -2,11 +2,6 @@
 # Created by https://www.gitignore.io/api/django,python
 # Edit at https://www.gitignore.io/?templates=django,python
 
-### Own stuff
-
-.coverage
-.coveragerc
-
 ### Django ###
 *.log
 *.pot
@@ -65,6 +60,7 @@ htmlcov/
 .tox/
 .nox/
 .coverage
+.coveragerc
 .coverage.*
 .cache
 nosetests.xml
