@@ -26,7 +26,7 @@ class TestPost_DetailView(TestCase):
     """Test the post_detail view."""
     def setUp(self):
         # Prepare a response object.
-        post = Post.objects.create(title='some slug')
+        Post.objects.create(title='some slug')
         url = reverse('forum:post_detail', kwargs={'post_id':1, 'post_slug': 'some-slug'})
         self.response = self.client.get(url)
 
@@ -37,3 +37,20 @@ class TestPost_DetailView(TestCase):
     def test_post_detail_view_context(self):
         # Test that it returns the right context.
         self.assertIn('post', self.response.context)
+
+
+class TestPost_NewPost_GET(TestCase):
+    """Test the new_post view."""
+    def setUp(self):
+        # Prepare a response object.
+        Post.objects.create(title='some slug')
+        url = '/new_post/'
+        self.response = self.client.get(url)
+
+    def test_new_post_view_template(self):
+        # Test that it returns the right template
+        self.assertTemplateUsed(self.response, 'forum/new_post.html')
+
+    def test_new_post_view_context(self):
+        # Test that it returns the right context.
+        self.assertIn('form', self.response.context)
