@@ -10,7 +10,7 @@ class ForumUrlTests(SimpleTestCase):
         # Test link namespace > url > view function.
         url = reverse('forum:posts_list')
         self.assertEqual(url, '/')
-        res = resolve(url)
+        res  = resolve(url)
         self.assertEqual(res.func, posts_list)
         # Test get request.
         response = self.client.get(url)

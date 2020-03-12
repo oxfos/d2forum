@@ -1,5 +1,6 @@
 from django.test import TestCase
 from django.urls import reverse
+from ..models import Post
 
 
 class TestPosts_listView(TestCase):
@@ -19,3 +20,16 @@ class TestPosts_listView(TestCase):
     def test_posts_list_view_context(self):
         # Test that a certain term is in the response context.
         self.assertIn('posts', self.response.context)
+
+
+class TestPost_DetailView(TestCase):
+    """Test the post_detail view."""
+    def setUp(self):
+        # Prepare a response object.
+        post = Post.objects.create(title='some slug')
+        url = reverse('forum:post_detail', kwargs={'post_id':1, 'post_slug': 'some-slug'})
+        self.response = self.client.get(url)
+
+    def test_post_detail_view_template(self):
+        # Test that it returns the right template
+        self.assertTemplateUsed(self.response, 'forum/post_detail.html')
