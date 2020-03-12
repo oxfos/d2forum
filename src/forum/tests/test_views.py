@@ -33,3 +33,7 @@ class TestPost_DetailView(TestCase):
     def test_post_detail_view_template(self):
         # Test that it returns the right template
         self.assertTemplateUsed(self.response, 'forum/post_detail.html')
+
+    def test_post_detail_view_context(self):
+        # Test that it returns the right context.
+        self.assertIn('post', self.response.context)
