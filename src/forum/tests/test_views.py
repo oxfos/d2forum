@@ -39,11 +39,10 @@ class TestPost_DetailView(TestCase):
         self.assertIn('post', self.response.context)
 
 
-class TestPost_NewPost_GET(TestCase):
-    """Test the new_post view."""
+class TestNew_Post_view_GET(TestCase):
+    """Test the new_post view GET method."""
     def setUp(self):
         # Prepare a response object.
-        Post.objects.create(title='some slug')
         url = '/new_post/'
         self.response = self.client.get(url)
 
