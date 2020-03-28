@@ -53,3 +53,15 @@ class TestNew_Post_view_GET(TestCase):
     def test_new_post_view_context(self):
         # Test that it returns the right context.
         self.assertIn('form', self.response.context)
+
+
+class TestNew_Post_view_POST(TestCase):
+    """Test the new_post view POST method."""
+    def setUp(self):
+        # Prepare a response object.
+        self.response = self.client.post('/new_post/', {'title': 'portobello', 'text':'my text'})
+
+    def test_new_post_view_object_created(self):
+        # Test that the correct object has been created.
+        new_post = Post.objects.get(id=1)
+        self.assertEqual(new_post.title, 'portobello')
