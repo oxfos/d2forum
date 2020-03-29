@@ -1,10 +1,11 @@
 from django.test import TestCase
 from django.urls import reverse
 from django.utils.text import slugify
-from ..models import Post
+from forum.models import Post
 
-class PostTestCase(TestCase):
-    def setUp(self):
+class PostModelTest(TestCase):
+    @classmethod
+    def setUpTestData(self):
         self.post = Post.objects.create(title='my dummy title', text='my_text',)
 
     def test_post_creation(self):
