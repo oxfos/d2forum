@@ -13,8 +13,6 @@ class PostModelTest(TestCase):
         self.assertTrue(isinstance(self.post, Post))
         # Test title is what should be.
         self.assertEqual(self.post.title, 'my dummy title')
-        # Test string representation of post.
-        self.assertEqual(str(self.post),'my dummy title')
         # Test slug.
         my_slug = slugify(self.post.title)
         self.assertEqual(self.post.slug, my_slug)
@@ -36,7 +34,6 @@ class PostModelTest(TestCase):
         self.assertEqual(title_length, 200)
 
     def test_post_object_name(self):
-        # Test that title is used as object name.
-        post = self.post
+        # Test that title is used as string representation of the object.
         expected_object_name = self.post.title
-        self.assertEqual(expected_object_name, str(post))
+        self.assertEqual(expected_object_name, str(self.post))
