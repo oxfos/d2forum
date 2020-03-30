@@ -1,10 +1,20 @@
 from django.test import TestCase
 from django.urls import reverse
-from ..models import Post
+from forum.models import Post
 
 
 class TestPosts_listView(TestCase):
     """Test the post_list view."""
+    @classmethod
+    def setUpTestData(cls):
+        # Create 13 posts.
+        nr_of_posts = 5
+        for post_id in range(nr_of_posts):
+            Post.objects.create(
+                title = f'post {post_id}',
+                text = f'text {post_id}',
+            )
+
     def setUp(self):
         # Prepare a response object.        
         self.response = self.client.get('/')
