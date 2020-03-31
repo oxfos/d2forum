@@ -1,6 +1,6 @@
 from django.test import TestCase, client
 from django.urls import reverse, resolve
-from forum.views import posts_list, post_detail, new_post
+from forum.views import posts_list, post_detail, new_post, delete_post
 from ..models import Post
 
 
@@ -46,4 +46,32 @@ class ForumUrlTests(TestCase):
         response = self.client.post(url, {'title': 'my post', 'text': 'whatever text'},
          follow=False) # follow=True ensures redirect is followed
         self.assertNotEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 302)
+
+    def test_delete_post_reverse(self):
+        # Test reverse function.
+        url = reverse('forum:delete_post', kwargs={'post_id':1, 'post_slug':'sluggish'})
+        self.assertEqual(url, '/1/sluggish/delete/')
+
+    def test_delete_post_resolve(self):
+        # Test resolve function.
+        match = resolve('/1/slug/delete/')
+        self.assertEqual(match.func, delete_post)
+    
+    def test_delete_post_GET(self):
+        # Test delete post GET request.
+        url = reverse('forum:delete_post', kwargs={'post_id':1, 'post_slug': 'my-title'})
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 404)
+    
+    def test_delete_post_POST(self):
+        # Test delete non-existent post POST request.
+        url = reverse('forum:delete_post', kwargs={'post_id': 2, 'post_slug': 'my-title'})
+        response = self.client.post(url)
+        self.assertEqual(response.status_code, 404)
+
+    def test_delete_real_post_POST(self):
+        # Test delete existent post POST request.
+        url = reverse('forum:delete_post', kwargs={'post_id': 1, 'post_slug': 'whatever'})
+        response = self.client.post(url)
         self.assertEqual(response.status_code, 302)
