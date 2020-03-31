@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.http import Http404
 from .models import Post
 from .forms import PostForm
 
@@ -30,5 +31,10 @@ def delete_post(request, post_slug, post_id):
     """Deletes an existing post"""
     # We make sure it is a POST request.
     if request.method == 'POST':
-        Post.objects.get(id=post_id).delete()
-        return redirect('forum:posts_list')
+        try:
+            Post.objects.get(id=post_id).delete()
+        except:
+            pass
+        else:            
+            return redirect('forum:posts_list')
+    raise Http404
