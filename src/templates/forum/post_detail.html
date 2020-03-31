@@ -3,4 +3,8 @@
 {% block content %}
 <p>{{ post.title }}</p>
 <p>{{ post.text }}</p>
+<form action="{% url 'forum:delete_post' post.pk post.slug %}" method="POST">
+    {% csrf_token %}
+    <button type="submit" value="delete">Delete</button>
+</form>
 {% endblock content %}

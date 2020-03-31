@@ -16,7 +16,7 @@ def post_detail(request, post_slug, post_id):
     return render(request, 'forum/post_detail.html', context)
 
 def new_post(request):
-    """Form to add a new post."""
+    """Processes the form to add a new post."""
     if request.method == 'POST':
         form = PostForm(data=request.POST)
         if form.is_valid():
@@ -25,3 +25,10 @@ def new_post(request):
     else:
         form = PostForm()
     return render(request, 'forum/new_post.html', {'form': form})
+
+def delete_post(request, post_slug, post_id):
+    """Deletes an existing post"""
+    # We make sure it is a POST request.
+    if request.method == 'POST':
+        Post.objects.get(id=post_id).delete()
+        return redirect('forum:posts_list')
