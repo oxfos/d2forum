@@ -13,5 +13,3 @@ urlpatterns = [
     # Delete post.
     path('<int:post_id>/<slug:post_slug>/delete/', views.delete_post, name="delete_post"),
 ]
-
-

@@ -75,3 +75,20 @@ class TestNew_Post_view_POST(TestCase):
         # Test that the correct object has been created.
         new_post = Post.objects.get(id=1)
         self.assertEqual(new_post.title, 'portobello')
+
+
+class TestDelete_Post_view_POST(TestCase):
+    """Test the delete_post view POST method"""
+    def setUp(self):
+        # Create a post.
+        Post.objects.create(title='test title', text='my text')
+    
+    def test_delete_post_view(self):
+        # test post is present.
+        my_post = Post.objects.get(id=1)
+        self.assertEqual(my_post.title, 'test title')
+        self.assertFalse(len(Post.objects.all()) == 0)
+        # delete post.
+        my_post.delete()
+        # test post is gone.
+        self.assertTrue(len(Post.objects.all()) == 0)
