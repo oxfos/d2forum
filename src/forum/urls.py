@@ -11,7 +11,7 @@ urlpatterns = [
     # Form to add new post.
     path('new_post/', views.new_post, name="new_post"),
     # Delete post.
-    path('<int:post_id>/<slug:post_slug>/delete_post/', views.delete_post, name="delete_post"),
+    path('<int:post_id>/<slug:post_slug>/delete/', views.delete_post, name="delete_post"),
 ]
 
 
