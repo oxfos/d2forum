@@ -31,12 +31,15 @@ def delete_post(request, post_slug, post_id):
     """Deletes an existing post"""
     # We make sure it is a POST request.
     if request.method == 'POST':
-        try:
-            my_post = Post.objects.get(id=post_id)
-        except:
-            pass
-        else:            
-            if my_post.post_set.count() == 0:
-                my_post.delete()
-                return redirect('forum:posts_list')
+        if request.POST.get('delete'):
+            try:
+                my_post = Post.objects.get(id=post_id)
+            except:
+                pass
+            else:            
+                if my_post.post_set.count() == 0:
+                    my_post.delete()
+                    return redirect('forum:posts_list')
+        if request.POST.get('react'):
+            return redirect('forum:posts_list')
     raise Http404
