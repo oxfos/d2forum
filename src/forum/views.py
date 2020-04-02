@@ -32,9 +32,11 @@ def delete_post(request, post_slug, post_id):
     # We make sure it is a POST request.
     if request.method == 'POST':
         try:
-            Post.objects.get(id=post_id).delete()
+            my_post = Post.objects.get(id=post_id)
         except:
             pass
         else:            
-            return redirect('forum:posts_list')
+            if my_post.post_set.count() == 0:
+                my_post.delete()
+                return redirect('forum:posts_list')
     raise Http404
