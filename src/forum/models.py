@@ -7,6 +7,7 @@ class Post(models.Model):
     slug = models.SlugField(max_length=200)
     text = models.TextField()
     date_added = models.DateTimeField(auto_now_add=True)
+    ref_post = models.ForeignKey('self', null=True, on_delete=models.PROTECT)
 
     def __str__(self):
         """Returns a sting representation of the model."""
