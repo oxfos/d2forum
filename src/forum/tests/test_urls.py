@@ -73,5 +73,5 @@ class ForumUrlTests(TestCase):
     def test_delete_real_post_POST(self):
         # Test delete existent post POST request.
         url = reverse('forum:delete_post', kwargs={'post_id': 1, 'post_slug': 'whatever'})
-        response = self.client.post(url)
+        response = self.client.post(url, {'delete': 'delete'})
         self.assertEqual(response.status_code, 302)
