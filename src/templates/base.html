@@ -1,4 +1,21 @@
-<p><a href="{% url 'forum:posts_list' %}">Forum</a></p>
+<!DOCTYPE html>
+<html lang="en">
 
-{% block content %}
-{% endblock content %}
+{% load static %}
+
+<head>
+    <script src="{% static 'js/jquery-3.4.1.js' %}"></script>
+    <script src="{% static 'js/my_scripts.js' %}"></script>
+
+    <title>d2forum</title>
+</head>
+
+<body>
+    <p><a href="{% url 'forum:posts_list' %}">Forum</a></p>
+
+    {% block content %}
+    {% endblock content %}
+
+</body>
+
+</html>
