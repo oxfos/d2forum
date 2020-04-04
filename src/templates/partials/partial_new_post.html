@@ -1,0 +1,5 @@
+<form action="{% url 'forum:new_post' %}" method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button name="submit">Submit post</button>
+</form>
