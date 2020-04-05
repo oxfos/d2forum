@@ -19,22 +19,26 @@ $(document).ready(function(){
 
 // EVENT TRIGGERS:
 
+
     $('button[name="reply"]').click(submitReply);
+
+
 
 // EVENT HANDLERS:
 
+
     function submitReply(event){
         event.preventDefault();
-        var reply = $(this).val();
-        var data = $(this).closest('form').serialize();
+        var data = $(this).val();
+        console.log(data);
         $.ajax({
             url: $(this).closest('form').attr('action'),
             type: 'POST',
             data: {
-                reply: reply
+                reply: data,
             },
             success: function(data){
-                console.log(data)
+                $('#reply').append(data);
             }
         });
     };

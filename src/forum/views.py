@@ -40,6 +40,7 @@ def delete_post(request, post_slug, post_id):
                 if my_post.post_set.count() == 0:
                     my_post.delete()
                     return redirect('forum:posts_list')
-        if request.POST.get('react'):
-            return redirect('forum:posts_list')
+        if request.POST.get('reply'):
+            form = PostForm()
+            return render(request, 'partials/partial_new_post.html', {'form': form})
     raise Http404
