@@ -12,7 +12,9 @@
     <button type="submit" name="reply" value="reply">Reply</button>
 </form>
 <p id="reply"></p>
-{% for reply in post.post_set.all %}
-{% include 'partials/partial_post.html' %}
-{% endfor %}
+{% with replies=post.post_set.all %}
+  {% for reply in replies %}
+    {% include 'partials/partial_post.html' %}
+  {% endfor %}
+{% endwith %}
 {% endblock content %}
