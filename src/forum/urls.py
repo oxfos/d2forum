@@ -1,5 +1,5 @@
 from django.urls import path
-from . import views
+from forum import views
 
 
 app_name = 'forum'
@@ -12,4 +12,6 @@ urlpatterns = [
     path('new_post/', views.new_post, name="new_post"),
     # Delete post.
     path('<int:post_id>/<slug:post_slug>/delete/', views.delete_post, name="delete_post"),
+    # Reply.
+    path('<int:post_id>/<slug:post_slug>/reply/', views.reply, name="reply"),
 ]
