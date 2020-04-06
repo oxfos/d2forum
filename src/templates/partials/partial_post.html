@@ -1,5 +1,5 @@
-<p>{{ reply.title }}</p>
-<p>{{ reply.text }}</p>
+<p>TITLE: {{ reply.title }}</p>
+<p>TITLE: {{ reply.text }}</p>
 <form id="post_form" action="{% url 'forum:delete_post' post.pk post.slug %}" method="POST">
     {% csrf_token %}
     <button type="submit" name="delete" value="delete">Delete</button>
@@ -9,6 +9,6 @@
     <button type="submit" name="reply" value="reply">Reply</button>
 </form>
 <p id="reply"></p>
-<!--here loop through replies
-per reply include partial_post
--->
+{% for reply in reply.post_set.all %}
+{% include 'partials/partial_post.html' %}
+{% endfor %}
