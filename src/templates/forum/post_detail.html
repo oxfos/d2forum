@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<p>{{ post.title }}</p>
-<p>{{ post.text }}</p>
+<p>TITLE: {{ post.title }}</p>
+<p>TEXT: {{ post.text }}</p>
 <form id="post_form" action="{% url 'forum:delete_post' post.pk post.slug %}" method="POST">
     {% csrf_token %}
     <button type="submit" name="delete" value="delete">Delete</button>
@@ -12,7 +12,7 @@
     <button type="submit" name="reply" value="reply">Reply</button>
 </form>
 <p id="reply"></p>
-<!--here loop through replies
-per reply include partial_post
--->
+{% for reply in post.post_set.all %}
+{% include 'partials/partial_post.html' %}
+{% endfor %}
 {% endblock content %}
