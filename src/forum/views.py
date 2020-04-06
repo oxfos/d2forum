@@ -40,7 +40,22 @@ def delete_post(request, post_slug, post_id):
                 if my_post.post_set.count() == 0:
                     my_post.delete()
                     return redirect('forum:posts_list')
-        if request.POST.get('reply'):
-            form = PostForm()
-            return render(request, 'partials/partial_new_post.html', {'form': form})
     raise Http404
+
+def reply(request, post_slug, post_id):
+    # View function to add reply to an existing post.
+    post = Post.objects.get(pk=post_id)
+    if request.method == 'POST':
+        form = PostForm(data=request.POST)
+        if form.is_valid():
+            new_reply = form.save(commit=False)
+            new_reply.ref_post = post
+            new_reply.save()
+            return redirect('forum:posts_list') # render with ajax; with its own, new id.
+    if request.method == 'GET':
+        form = PostForm()
+        context = {
+            'form': form,
+            'post': post,
+        }
+        return render(request, 'partials/partial_post_form.html', context)
