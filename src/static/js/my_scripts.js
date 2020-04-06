@@ -29,16 +29,12 @@ $(document).ready(function(){
     // consider rewriting this function with .load()
     function displayForm(event){
         event.preventDefault();
-        // this data is passed as a GET dictionary (i.e. in the url)
-        var data = {
-            'post_id': 24,
-            'post_slug': 'post-2-title',
-        };
+        var element = this;
         $.ajax({
             url: $(this).closest('form[id="post_reply"]').attr('action'),
             type: 'GET',
             success: function(data){
-                $('#reply').append(data);
+                $(element).closest('div').append(data);
             }
         });
     };
