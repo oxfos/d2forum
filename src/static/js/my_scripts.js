@@ -20,23 +20,23 @@ $(document).ready(function(){
 // EVENT TRIGGERS:
 
 
-    $('button[name="reply"]').click(submitReply);
+    $('button[name="reply"]').click(displayForm);
 
 
 
 // EVENT HANDLERS:
 
-
-    function submitReply(event){
+    // consider rewriting this function with .load()
+    function displayForm(event){
         event.preventDefault();
-        var data = $(this).val();
-        console.log(data);
+        // this data is passed as a GET dictionary (i.e. in the url)
+        var data = {
+            'post_id': 24,
+            'post_slug': 'post-2-title',
+        };
         $.ajax({
-            url: $(this).closest('form').attr('action'),
-            type: 'POST',
-            data: {
-                reply: data,
-            },
+            url: $(this).closest('form[id="post_reply"]').attr('action'),
+            type: 'GET',
             success: function(data){
                 $('#reply').append(data);
             }
