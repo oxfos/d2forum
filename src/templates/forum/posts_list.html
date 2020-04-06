@@ -4,6 +4,8 @@
 <h2>These are the latest posts:</h2>
 <a href="{% url 'forum:new_post' %}">Add a new post</a>
 {% for post in posts %}
-<p><a href="{% url 'forum:post_detail' post.id post.slug %}">{{ post.title }}</a></p>
+  {% if not post.ref_post %}
+  <p><a href="{% url 'forum:post_detail' post.id post.slug %}">{{ post.title }}</a></p>
+  {% endif %}
 {% endfor %}
 {% endblock content %}
