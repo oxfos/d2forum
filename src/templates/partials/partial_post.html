@@ -1,14 +1,16 @@
 <p>TITLE: {{ reply.title }}</p>
 <p>TITLE: {{ reply.text }}</p>
-<form id="post_form" action="{% url 'forum:delete_post' post.pk post.slug %}" method="POST">
+<form id="post_form" action="{% url 'forum:delete_post' reply.pk reply.slug %}" method="POST">
     {% csrf_token %}
     <button type="submit" name="delete" value="delete">Delete</button>
 </form>
-<form id="post_reply" action="{% url 'forum:reply' post.pk post.slug %}" method="POST">
+<form id="post_reply" action="{% url 'forum:reply' reply.pk reply.slug %}" method="POST">
     {% csrf_token %}
     <button type="submit" name="reply" value="reply">Reply</button>
 </form>
 <p id="reply"></p>
-{% for reply in reply.post_set.all %}
-{% include 'partials/partial_post.html' %}
-{% endfor %}
+{% with replies=reply.post_set.all %}
+  {% for reply in replies %}
+    {% include 'partials/partial_post.html' %}
+  {% endfor %}
+{% endwith %}
