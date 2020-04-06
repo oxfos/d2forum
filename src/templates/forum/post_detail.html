@@ -6,7 +6,13 @@
 <form id="post_form" action="{% url 'forum:delete_post' post.pk post.slug %}" method="POST">
     {% csrf_token %}
     <button type="submit" name="delete" value="delete">Delete</button>
+</form>
+<form id="post_reply" action="{% url 'forum:reply' post.pk post.slug %}" method="POST">
+    {% csrf_token %}
     <button type="submit" name="reply" value="reply">Reply</button>
 </form>
 <p id="reply"></p>
+<!--here loop through replies
+per reply include partial_post
+-->
 {% endblock content %}
