@@ -30,16 +30,16 @@ def new_post(request):
 def delete_post(request, post_slug, post_id):
     """Deletes an existing post"""
     # We make sure it is a POST request.
-    if request.method == 'POST':
-        if request.POST.get('delete'):
-            try:
-                my_post = Post.objects.get(id=post_id)
-            except:
-                pass
-            else:            
-                if my_post.post_set.count() == 0:
-                    my_post.delete()
-                    return redirect('forum:posts_list')
+    # I removed the 'delete' check.
+    if request.method == 'POST': 
+        try:
+            my_post = Post.objects.get(id=post_id)
+        except:
+            raise Http404
+        else:            
+            if my_post.post_set.count() == 0:
+                my_post.delete()
+                return redirect('forum:posts_list')
     raise Http404
 
 def reply(request, post_slug, post_id):
