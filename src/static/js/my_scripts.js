@@ -20,21 +20,23 @@ $(document).ready(function(){
 // EVENT TRIGGERS:
 
 
-    $('button[name="reply"]').click(displayForm);
-
+    $('button[name="reply"]').click(submitReply);
+    $('body').on('click', 'button[name="submit-reply"]', submitReply);
 
 
 // EVENT HANDLERS:
 
     // consider rewriting this function with .load()
-    function displayForm(event){
+    function submitReply(event){
         event.preventDefault();
-        var element = this;
+        let form = $(this).closest('form');
+        let element = this;
         $.ajax({
-            url: $(this).closest('form[id="post_reply"]').attr('action'),
-            type: 'GET',
-            success: function(data){
-                $(element).closest('div').append(data);
+            url: form.attr('action'),
+            type: form.attr('method'),
+            data: form.serialize(),
+            success: function(response){
+                $(element).closest('div#post').find('#my_reply').html(response);
             }
         });
     };

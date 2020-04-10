@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<form action="{% url 'forum:new_post' %}" method="POST">
+<form action="{% url 'forum:new_post' %}" method="POST" novalidate>
     {% csrf_token %}
     {{ form.as_p }}
     <button name="submit">Submit post</button>

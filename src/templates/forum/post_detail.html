@@ -8,10 +8,11 @@
   </form>
   <p>TITLE: {{ post.title }}</p>
   <p>TEXT: {{ post.text }}</p>
-  <form id="post_reply" action="{% url 'forum:reply' post.pk post.slug %}" method="POST">
+  <form id="post_reply" action="{% url 'forum:reply' post.pk post.slug %}" method="GET">
     {% csrf_token %}
-    <button type="submit" name="reply" value="reply">Reply</button>
+    <button name="reply" value="reply">Reply</button>
   </form>
+  <div id="my_reply"></div>
 </div>
 {% with replies=post.post_set.all %}
 {% for reply in replies %}

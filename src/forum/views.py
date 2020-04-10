@@ -25,7 +25,7 @@ def new_post(request):
             return redirect('forum:posts_list')
     else:
         form = PostForm()
-    return render(request, 'forum/new_post.html', {'form': form})
+    return render(request, 'forum/new_post_form.html', {'form': form})
 
 def delete_post(request, post_slug, post_id):
     """Deletes an existing post"""
@@ -52,10 +52,10 @@ def reply(request, post_slug, post_id):
             new_reply.ref_post = post
             new_reply.save()
             return redirect('forum:posts_list') # render with ajax; with its own, new id.
-    if request.method == 'GET':
+    elif request.method == 'GET':
         form = PostForm()
-        context = {
-            'form': form,
-            'post': post,
-        }
-        return render(request, 'partials/partial_post_form.html', context)
+    context = {
+        'form': form,
+        'post': post,
+    }
+    return render(request, 'partials/partial_reply_form.html', context)

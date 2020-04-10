@@ -1,0 +1,5 @@
+<form action="{% url 'forum:reply' post.pk post.slug %}" method="POST" novalidate>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" name="submit-reply" value="submit-reply">Submit reply</button>
+</form>
