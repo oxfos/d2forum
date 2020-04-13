@@ -1,4 +1,4 @@
-<div id="post" class="box">
+<div id="post" class="reply">
   <form id="post_form" action="{% url 'forum:delete_post' reply.pk reply.slug %}" method="POST">
     {% csrf_token %}
     <button type="submit" name="delete" value="delete">Delete</button>
@@ -10,9 +10,9 @@
     <button name="reply" value="reply">Reply</button>
   </form>
   <div id="my_reply"></div>
-</div>
 {% with replies=reply.post_set.all %}
 {% for reply in replies %}
 {% include 'partials/partial_post.html' %}
 {% endfor %}
 {% endwith %}
+</div>
