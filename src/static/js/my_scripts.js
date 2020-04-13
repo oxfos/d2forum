@@ -39,7 +39,7 @@ $(document).ready(function(){
                 if (response == '') {
                     window.location.replace('/');
                 } else {
-                    $(form).closest('div#post').find('#my_reply').html(response);
+                    $(form).closest('div#post').find('#my_reply').first().html(response);
                   }
                 },
             error: function(request, errorType, errorMessage){
