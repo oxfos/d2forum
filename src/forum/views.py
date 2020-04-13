@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.http import Http404
+from django.http import Http404, HttpResponse
 from .models import Post
 from .forms import PostForm
 
@@ -46,13 +46,15 @@ def reply(request, post_slug, post_id):
     # View function to add reply to an existing post.
     post = Post.objects.get(pk=post_id)
     if request.method == 'POST':
+        # If request is POST we check if the form is valid.
         form = PostForm(data=request.POST)
         if form.is_valid():
             new_reply = form.save(commit=False)
             new_reply.ref_post = post
             new_reply.save()
-            return redirect('forum:posts_list') # render with ajax; with its own, new id.
+            return HttpResponse('')
     elif request.method == 'GET':
+        # If the form is GET we return the empty post form.
         form = PostForm()
     context = {
         'form': form,

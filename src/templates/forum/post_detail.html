@@ -8,7 +8,7 @@
   </form>
   <p>TITLE: {{ post.title }}</p>
   <p>TEXT: {{ post.text }}</p>
-  <form id="post_reply" action="{% url 'forum:reply' post.pk post.slug %}" method="GET">
+  <form id="get_reply" action="{% url 'forum:reply' post.pk post.slug %}" method="GET">
     {% csrf_token %}
     <button name="reply" value="reply">Reply</button>
   </form>

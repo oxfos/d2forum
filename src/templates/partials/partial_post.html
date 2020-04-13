@@ -5,7 +5,7 @@
   </form>
   <p>TITLE: {{ reply.title }}</p>
   <p>TITLE: {{ reply.text }}</p>
-  <form action="{% url 'forum:reply' reply.pk reply.slug %}" method="GET">
+  <form id="get_reply" action="{% url 'forum:reply' reply.pk reply.slug %}" method="GET">
     {% csrf_token %}
     <button name="reply" value="reply">Reply</button>
   </form>
