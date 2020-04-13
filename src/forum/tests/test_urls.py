@@ -1,7 +1,7 @@
 from django.test import TestCase, client
 from django.urls import reverse, resolve
-from forum.views import posts_list, post_detail, new_post, delete_post
-from ..models import Post
+from forum.views import posts_list, post_detail, new_post, delete_post, reply
+from forum.models import Post
 
 
 class ForumUrlTests(TestCase):
@@ -75,3 +75,19 @@ class ForumUrlTests(TestCase):
         url = reverse('forum:delete_post', kwargs={'post_id': 1, 'post_slug': 'whatever'})
         response = self.client.post(url, {'delete': 'delete'})
         self.assertEqual(response.status_code, 302)
+    
+    def test_reply_GET_resolve(self):
+        # Test resolve function retrieves correct function.
+        res = resolve('/1/whatever/reply/')
+        self.assertEqual(res.func, reply)
+
+    def test_reply_GET_status_code(self):
+        # Test get url status code.
+        url = reverse('forum:reply', kwargs={'post_id': 1, 'post_slug': 'whatever'})
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+    def test_reply_POST_status_code(self):
+        # Test post url status code.
+        response = self.client.post('/1/whatever/reply/')
+        self.assertEqual(response.status_code, 200)

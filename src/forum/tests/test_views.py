@@ -58,7 +58,7 @@ class TestNew_Post_view_GET(TestCase):
 
     def test_new_post_view_template(self):
         # Test that it returns the right template
-        self.assertTemplateUsed(self.response, 'forum/new_post.html')
+        self.assertTemplateUsed(self.response, 'forum/new_post_form.html')
 
     def test_new_post_view_context(self):
         # Test that it returns the right context.
